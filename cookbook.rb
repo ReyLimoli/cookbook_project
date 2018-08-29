@@ -1,8 +1,10 @@
+require_relative "receita"
+
 puts "Bem vindo ao CookBook! \n\n"
 
 opcoes = 0
 receitas = []
-numero_receita = 0
+num = 0
 while (opcoes != 3) do
     puts "MENU"
     puts "[1] Incluir uma receita"
@@ -13,12 +15,22 @@ while (opcoes != 3) do
     opcoes = gets().to_i
     puts
     if (opcoes == 1)   
-        numero_receita = numero_receita + 1 
+        num = num + 1 
+        @numero_receita = num
         puts "Opção escolhida: " + opcoes.to_s
         print "Digite o nome da sua nova receita: "
         descricao = gets().chomp()
-        receita = "##{ numero_receita.to_s } - "  + descricao
-        puts "Receita cadastrada: #{ receita } "
+        print "Digite o modo de preparo: "
+        modo = gets().chomp()
+        print "Digite o tipo de receita: "
+        tipo = gets().chomp()
+
+        nova_receita = Receita.new(descricao, modo, tipo)
+        receita = nova_receita
+        puts "Receita cadastrada: "
+        receita.imprimir()
+        
+        receita = "##{ num.to_s } - #{ receita } "
         receitas << receita
         
     elsif (opcoes == 2)
@@ -26,7 +38,7 @@ while (opcoes != 3) do
             puts "Você ainda não cadastrou nenhuma receita! \n\n"
         else
             puts "Estas são as receitas cadastradas: "
-            puts  receitas
+            puts receitas
             puts
         end        
     elsif (opcoes == 3)
